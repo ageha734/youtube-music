@@ -1,0 +1,18 @@
+pre-commit:
+  parallel: true
+  commands:
+    ruff:
+      files: git ls-files
+      glob: '*.py'
+      run: pdm run ruff {staged_files}
+      stage_fixed: true
+    mypy:
+      glob: '*.py'
+      run: pdm run mypy --pretty {staged_files}
+
+pre-push:
+  commands: &pre-push
+    pdm-lock:
+      files: git ls-files pyproject.toml
+      run: pdm lock --group ':all' --refresh
+  parallel: true

@@ -1,0 +1,19 @@
+{
+    "[python]": {
+        // 保存時にコードを整理
+        "editor.formatOnSave": true,
+        // デフォルトのformatterにruffを指定
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            // 保存時にimportを整理
+            "source.organizeImports": "explicit"
+        }
+    },
+    "ruff.format.args": [
+        "--config=pyproject.toml"
+    ],
+    "ruff.importStrategy": "useBundled",
+    "mypy-type-checker.args": [
+        "--config=pyproject.toml"
+    ],
+}
