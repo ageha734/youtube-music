@@ -1,14 +1,24 @@
 {
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        110
+    ],
+    "githubPullRequests.showPullRequestNumberInTree": true,
     "[python]": {
-        // 保存時にコードを整理
         "editor.formatOnSave": true,
-        // デフォルトのformatterにruffを指定
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
-            // 保存時にimportを整理
             "source.organizeImports": "explicit"
         }
     },
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.analysis.extraPaths": [
+        "./"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "--capture=no"
+    ],
     "ruff.format.args": [
         "--config=pyproject.toml"
     ],
@@ -16,9 +26,4 @@
     "mypy-type-checker.args": [
         "--config=pyproject.toml"
     ],
-    "python.testing.pytestArgs": [
-        "tests"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
 }

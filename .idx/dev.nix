@@ -20,7 +20,7 @@
         pdm-install = "pdm install";
       };
       onStart = {
-        # watch-backend = "npm run watch-backend";
+        # watch-backend = "pdm run watch-backend";
       };
     };
   };
