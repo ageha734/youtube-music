@@ -31,10 +31,10 @@ jobs:
 
       - name: Lint with Ruff
         run: |
-          pip install ruff=0.8.0
+          pip install ruff==0.8.0
           ruff check . --output-format=github
 
       - name: Lint with Mypy
         run: |
-          pip install mypy=1.13.0
+          pip install mypy==1.13.0
           mypy . --config-file pyproject.toml --ignore-missing-imports --no-namespace-packages
