@@ -162,5 +162,4 @@ cython_debug/
 .idea/
 
 # Auth
-oauth.json
 browser.json

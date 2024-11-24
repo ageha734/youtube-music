@@ -1,8 +1,7 @@
 {
-    "artist_order": [
-      "Artist A",
-      "Artist B",
-      "Artist C"
-    ]
-  }
-  
+  "artist_order": [
+    "アーティスト1",
+    "アーティスト2",
+    "アーティスト3"
+  ]
+}
