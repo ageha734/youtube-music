@@ -6,13 +6,16 @@ build-backend = "hatchling.build"
 name = "youtube-music"
 version = "0.1.0"
 requires-python = "==3.9.19"
-dependencies = ["requests>=2.32.3"]
+dependencies = [
+    "ytmusicapi>=1.8.2",
+    "schedule>=1.2.2",
+]
 
 [tool.pdm]
 distribution = false
 
 [tool.pdm.scripts]
-pre_install = "eval $(pdm venv activate)"
+pre_install = "pdm venv activate"
 post_install = "lefthook install"
 pre_build = "ruff src"
 post_build = ""
@@ -31,6 +34,7 @@ precision = 2
 [tool.ruff]
 target-version = "py312"
 line-length = 110
+select = ["UP"]
 
 [tool.ruff.lint]
 ignore = [ "F403", "F405", "F821", "E731", "PTH123" ]
@@ -69,6 +73,7 @@ disallow_untyped_defs = true
 no_implicit_optional = true
 check_untyped_defs = true
 warn_redundant_casts = true
+ignore_missing_imports = true
 
 [dependency-groups]
 dev = [
