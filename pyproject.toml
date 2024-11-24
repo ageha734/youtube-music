@@ -12,7 +12,8 @@ dependencies = ["requests>=2.32.3"]
 distribution = false
 
 [tool.pdm.scripts]
-pre_install = "lefthook install"
+pre_install = "eval $(pdm venv activate)"
+post_install = "lefthook install"
 pre_build = "ruff src"
 post_build = ""
 
