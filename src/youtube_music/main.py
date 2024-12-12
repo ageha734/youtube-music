@@ -10,7 +10,7 @@ from ytmusicapi import YTMusic
 from ytmusicapi.exceptions import YTMusicServerError
 
 # ロガーの設定
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.WARNING, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 
@@ -40,7 +40,7 @@ class PlaylistSorter:
             # プレイリストの存在確認
             try:
                 if self.ytmusic is not None:
-                    playlist = self.ytmusic.get_playlist(self.playlist_id)
+                    playlist = self.ytmusic.get_playlist(self.playlist_id, None)
                     logger.debug(f"プレイリスト情報を取得しました: {playlist.get('title', 'Unknown')!s}")
                 logger.info("初期化成功: YouTube Music APIに接続しました")
                 return True
@@ -100,7 +100,7 @@ class PlaylistSorter:
                 return False
 
             # プレイリストの取得
-            playlist = self.ytmusic.get_playlist(self.playlist_id)
+            playlist = self.ytmusic.get_playlist(self.playlist_id, None)
             if not playlist.get("tracks"):
                 logger.warning("プレイリストが空です")
                 return False
@@ -133,10 +133,9 @@ class PlaylistSorter:
             try:
                 # すべてのトラックの削除
                 for track in tracks:
-                    # setVideoIdがない場合はplaylistItemIdを使用
-                    item_id = track.get("playlistItemId", track.get("setVideoId"))
-                    if item_id:
-                        self.ytmusic.remove_playlist_items(self.playlist_id, [item_id])
+                    video_id = track.get("videoId")
+                    if video_id:
+                        self.ytmusic.remove_playlist_items(self.playlist_id, [video_id])
                         time.sleep(0.5)  # APIレート制限を避けるための遅延
                     else:
                         logger.warning(f"トラック削除をスキップ: ID不明 - {track.get('title', 'Unknown')}")
@@ -168,7 +167,7 @@ class PlaylistSorter:
 def main() -> None:
     """メイン関数"""
     # プレイリストIDの設定
-    PLAYLIST_ID = "PLaQdlWuYHujCV-TY97OG-21kzVAEW31vY"
+    PLAYLIST_ID = "PLfujCgMH_oyD8p3kQC7f1_ZiFPj8J1I7N"
 
     # PlaylistSorterの初期化
     sorter = PlaylistSorter(playlist_id=PLAYLIST_ID, oauth_file="browser.json")
@@ -180,6 +179,8 @@ def main() -> None:
     # 初回実行
     sorter.sort_playlist_by_artist()
 
+
+"""
     # スケジュール設定 - インスタンスメソッドを正しく参照
     schedule.every().day.at("10:00").do(sorter.sort_playlist_by_artist)
 
@@ -195,7 +196,7 @@ def main() -> None:
             logger.error(f"予期せぬエラーが発生しました: {e!s}")
             logger.error(f"トレースバック:\n{traceback.format_exc()}")
             time.sleep(60)  # エラー時は1分待機してから再試行
-
+"""
 
 if __name__ == "__main__":
     main()
